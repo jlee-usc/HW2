@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cctype>
 #include <algorithm>
+#include <functional>
 #include "util.h"
 
 using namespace std;
@@ -15,16 +16,24 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
-
-
-
-
-
-
-
-
-
-
+  set<string> words;
+  string current;
+  for (size_t i = 0; i < rawWords.size(); ++i){
+    unsigned char c = static_cast<unsigned char>(rawWords[i]);
+    if (isspace(c) || ispunct(c)){
+      if (current.size() >= 2){
+        words.insert(current);
+      }
+      current.clear();
+    }
+    else{
+      current += rawWords[i];
+    }
+  }
+  if (current.size() > 2){
+    words.insert(current);
+  }
+  return words;
 }
 
 /**************************************************
